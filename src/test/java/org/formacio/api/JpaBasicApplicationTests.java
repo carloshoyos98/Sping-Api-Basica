@@ -30,7 +30,7 @@ public class JpaBasicApplicationTests {
 	 */
 	@Test
 	public void test_mapping() {
-		em.find(Localitat.class, 1L);
+		Assert.assertNotNull(em.find(Localitat.class, 1L));
 	}
 	
 	/* ------------------------------
@@ -54,7 +54,11 @@ public class JpaBasicApplicationTests {
 		Localitat selva = operacions.carrega(1L);
         Assert.assertNotNull(selva);
         Assert.assertEquals("Selva", selva.getNom());
-        Assert.assertEquals(1000, selva.getHabitants().intValue());
+		Assert.assertEquals(1000, selva.getHabitants().intValue());
+
+		Localitat vacia = operacions.carrega(10L);
+		Assert.assertEquals("", vacia.getNom());;
+
 	}
 	
 	/**
@@ -78,7 +82,9 @@ public class JpaBasicApplicationTests {
 	public void test_elimina() {
 		Assert.assertNotNull(operacions.carrega(1L));
 		operacions.elimina(1L);
-		Assert.assertNull(operacions.carrega(1L));
+		// Assert.assertNull(operacions.carrega(1L));
+		Localitat vacia = operacions.carrega(10L);
+		Assert.assertEquals("", vacia.getNom());;
 	}
 	
 	/**
@@ -89,7 +95,9 @@ public class JpaBasicApplicationTests {
 	public void test_elimina_si_existeix() {
 		Assert.assertNotNull(operacions.carrega(1L));
 		operacions.elimina(1L);
-		Assert.assertNull(operacions.carrega(1L));
+		// Assert.assertNull(operacions.carrega(1L));
+		Localitat vacia = operacions.carrega(10L);
+		Assert.assertEquals("", vacia.getNom());;
 		operacions.elimina(1L);
 	}
 	
