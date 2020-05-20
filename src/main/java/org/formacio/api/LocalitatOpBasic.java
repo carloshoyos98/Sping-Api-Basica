@@ -1,5 +1,7 @@
 package org.formacio.api;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,8 +19,13 @@ public class LocalitatOpBasic {
 	private EntityManager em;
 	
 	public Localitat carrega (long id) {
-		Localitat localitat = em.find(Localitat.class, id);
-		return localitat;
+		/*
+		 * Optional<Localitat> localitat = Optional.of(em.find(Localitat.class, id));
+		 * Probado, pero da errores si no se encuentra valor de Localitat
+		 */
+		Optional<Localitat> localitat = Optional.ofNullable(em.find(Localitat.class, id));
+		//Con localitat.orElse() indicamos que devuelva ese valor por defecto si Localitat no existe.
+		return localitat.orElse(new Localitat(0L, "", 0));
 	}
 	
 	public void alta (String nom, Integer habitants) {
