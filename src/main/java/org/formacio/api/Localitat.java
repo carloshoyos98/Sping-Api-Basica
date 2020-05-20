@@ -28,6 +28,14 @@ public class Localitat {
 	@Column(name = "LOC_HABS")
 	private Integer habitants;
 	
+	
+	//Constuctor para implementar el eso de Optional<>
+	public Localitat(Long id, String nom, Integer habitants) {
+		setId(id);
+		setNom(nom);
+		setHabitants(habitants);
+	}
+	
 	public Long getId() {
 		return id;
 	}
