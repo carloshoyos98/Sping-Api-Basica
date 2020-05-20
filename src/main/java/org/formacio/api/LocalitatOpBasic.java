@@ -45,7 +45,16 @@ public class LocalitatOpBasic {
 		};
 	}
 	
+	@Transactional
 	public void modifica (Localitat localitat) {
+//		em.merge(localitat);
+//		Bastaría con esto si no se cmprueba que la localidad exista,
+//		para tratar esto sin que de errores mejor implementamos con  Optional<>
+//		
+		Optional<Localitat> localitatExistent = Optional.ofNullable(em.find(Localitat.class, localitat.getId()));
+		if(localitatExistent.isPresent()) {
+			em.merge(localitat);
+		};
 	}
 
 }
