@@ -38,8 +38,11 @@ public class LocalitatOpBasic {
 	
 	@Transactional
 	public void elimina (long id) {
-		Localitat localitat = em.find(Localitat.class, id);
-		em.remove(localitat);
+		Optional<Localitat> localitat = Optional.ofNullable(em.find(Localitat.class, id));
+		if(localitat.isPresent()) {
+			// em.remove(localitat); <-- Falla porque localitat es un Optional y no una Localitat persistente en la BBDD
+			em.remove(localitat.get());
+		};
 	}
 	
 	public void modifica (Localitat localitat) {
